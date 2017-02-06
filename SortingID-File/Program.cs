@@ -14,14 +14,24 @@ namespace SortingID_File
             public string student_id;
             public string student_name;
             public double student_GPA;
+            public double stdsub_weight;
+            public string stdsub;
+            public double finishgpa;
         };
         const int _SIZE = 3;
 
         // Loop //
         static int loop1, loop2, loop3;
+        static int subject_loop1;
+
         // Hold Part //
         static string HL , HL2;
         static double HL3;
+
+        // Calculator Part //
+        static double cal_p1;
+        static double cal_p2;
+        static double cal_p3;
 
         // Verify Part //
         static string _VE1_string;
@@ -52,11 +62,21 @@ namespace SortingID_File
                     record_p1[loop1].student_name = Console.ReadLine();
                     _VE2_string = record_p1[loop1].student_name;
 
-                    Console.Write("Enter {0} GPAX : ", record_p1[loop1].student_name);
+                // Subject Enter Loop //
+                    for(subject_loop1 = 0; subject_loop1 < _SIZE; subject_loop1++)
+                { 
+                    Console.Write("Enter Subject of {0} To Record : ", record_p1[loop1].student_name);
+                    record_p1[loop1].stdsub = Console.ReadLine();
+
+                    Console.Write("Enter {0} GPAX in {1}: ", record_p1[loop1].student_name , record_p1[loop1].stdsub);
                     double.TryParse(Console.ReadLine(), out record_p1[loop1].student_GPA);
                     _VE3_double = record_p1[loop1].student_GPA;
 
-                    if (_VE1_string.Length > 8 || _VE1_string.Length < 8 || _VE2_string.Length < 1 || _VE3_double > 4.00 || _VE3_double < 0.00)
+                    Console.Write("Enter {0} GPA Weight : " , record_p1[loop1].stdsub);
+                    double.TryParse(Console.ReadLine(), out record_p1[loop1].stdsub_weight);
+                }
+
+                if (_VE1_string.Length > 8 || _VE1_string.Length < 8 || _VE2_string.Length < 1 || _VE3_double > 4.00 || _VE3_double < 0.00)
                     {
                         Console.WriteLine("Invalid Information on [{0}]", loop1);
                         Console.WriteLine("Enter New Information ! ");
@@ -101,14 +121,13 @@ namespace SortingID_File
 
                         } else if (_VX_sel == 2)
                         {
+                            HL2 = record_p1[loop3].student_id;
+                            record_p1[loop3].student_id = record_p1[loop3 + 1].student_id;
+                            record_p1[loop3 + 1].student_id = HL2;
 
                             HL = record_p1[loop3].student_name;
                             record_p1[loop3].student_name = record_p1[loop3 + 1].student_name;
                             record_p1[loop3 + 1].student_name = HL;
-
-                            HL2 = record_p1[loop3].student_id;
-                            record_p1[loop3].student_id = record_p1[loop3 + 1].student_id;
-                            record_p1[loop3 + 1].student_id = HL2;
 
                             HL3 = record_p1[loop3].student_GPA;
                             record_p1[loop3].student_GPA = record_p1[loop3 + 1].student_GPA;
@@ -136,10 +155,17 @@ namespace SortingID_File
 
             for (loop1 = 0; loop1 < _SIZE; loop1++)
             {
+                cal_p1 += record_p1[loop1].student_GPA * record_p1[loop1].stdsub_weight;
+                cal_p2 += record_p1[loop1].stdsub_weight;
+                cal_p3 = cal_p1 / cal_p2;
+                record_p1[loop1].finishgpa = cal_p3;
+            }
+            for (loop1 = 0; loop1 < _SIZE; loop1++)
+            {
                 // Record Section //
                 Console.WriteLine();
                 Console.WriteLine("Student {0} ID : {1}" , record_p1[loop1].student_name , record_p1[loop1].student_id);
-                Console.WriteLine("GPAX of {0} is : {1}", record_p1[loop1].student_name , record_p1[loop1].student_GPA);
+                Console.WriteLine("GPAX of {0} is : {1:F2}", record_p1[loop1].student_name , record_p1[loop1].finishgpa);
             }
 
             Console.ReadKey();
@@ -155,9 +181,9 @@ namespace SortingID_File
                 for (loop1 = 0; loop1 < _SIZE; loop1++)
                 {
                     StreamWriter _Fx = new StreamWriter("C:\\_data\\" + stdfile + ".txt", true);
-                    _Fx.WriteLine("Student {0} ID : {1}", record_p1[loop1].student_name, record_p1[loop1].student_id);
-                    _Fx.WriteLine("GPAX of {0} is : {1}", record_p1[loop1].student_name, record_p1[loop1].student_GPA);
-
+                    _Fx.WriteLine("");
+                    _Fx.WriteLine("Student {0,5} ID : {1,5}", record_p1[loop1].student_name, record_p1[loop1].student_id);
+                    _Fx.WriteLine("GPAX of {0,5} is : {1:F2,5}", record_p1[loop1].student_name, record_p1[loop1].finishgpa);
                     _Fx.Close();
                 }
 

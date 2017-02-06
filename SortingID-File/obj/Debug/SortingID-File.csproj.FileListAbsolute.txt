@@ -1,0 +1,6 @@
+c:\users\asanan\documents\visual studio 2015\Projects\SortingID-File\SortingID-File\bin\Debug\SortingID-File.exe.config
+c:\users\asanan\documents\visual studio 2015\Projects\SortingID-File\SortingID-File\obj\Debug\SortingID-File.csprojResolveAssemblyReference.cache
+c:\users\asanan\documents\visual studio 2015\Projects\SortingID-File\SortingID-File\bin\Debug\SortingID-File.exe
+c:\users\asanan\documents\visual studio 2015\Projects\SortingID-File\SortingID-File\bin\Debug\SortingID-File.pdb
+c:\users\asanan\documents\visual studio 2015\Projects\SortingID-File\SortingID-File\obj\Debug\SortingID-File.exe
+c:\users\asanan\documents\visual studio 2015\Projects\SortingID-File\SortingID-File\obj\Debug\SortingID-File.pdb
