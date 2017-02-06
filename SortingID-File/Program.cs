@@ -97,6 +97,14 @@ namespace SortingID_File
                 int.TryParse(Console.ReadLine(), out _VX_sel);
             } while (_VX_sel < 0 || _VX_sel > 3);
 
+            for (loop1 = 0; loop1 < _SIZE; loop1++)
+            {
+                cal_p1 += record_p1[loop1].student_GPA * record_p1[loop1].stdsub_weight;
+                cal_p2 += record_p1[loop1].stdsub_weight;
+                cal_p3 = cal_p1 / cal_p2;
+                record_p1[loop1].finishgpa = cal_p3;
+            }
+
             for (loop2 = 1; loop2 < _SIZE - 1;loop2++)
             {
                 for (loop3 = 0; loop3 < _SIZE -2; loop3++)
@@ -107,9 +115,9 @@ namespace SortingID_File
                         if (_VX_sel == 1)
                         { 
 
-                            HL3 = record_p1[loop3].student_GPA;
-                            record_p1[loop3].student_GPA = record_p1[loop3 + 1].student_GPA;
-                            record_p1[loop3 + 1].student_GPA = HL3;
+                            HL3 = record_p1[loop3].finishgpa;
+                            record_p1[loop3].finishgpa = record_p1[loop3 + 1].finishgpa;
+                            record_p1[loop3 + 1].finishgpa = HL3;
 
                             HL = record_p1[loop3].student_name;
                             record_p1[loop3].student_name = record_p1[loop3 + 1].student_name;
@@ -129,9 +137,9 @@ namespace SortingID_File
                             record_p1[loop3].student_name = record_p1[loop3 + 1].student_name;
                             record_p1[loop3 + 1].student_name = HL;
 
-                            HL3 = record_p1[loop3].student_GPA;
-                            record_p1[loop3].student_GPA = record_p1[loop3 + 1].student_GPA;
-                            record_p1[loop3 + 1].student_GPA = HL3;
+                            HL3 = record_p1[loop3].finishgpa;
+                            record_p1[loop3].finishgpa = record_p1[loop3 + 1].finishgpa;
+                            record_p1[loop3 + 1].finishgpa = HL3;
 
                         } else if (_VX_sel == 3)
                         {
@@ -140,9 +148,9 @@ namespace SortingID_File
                             record_p1[loop3].student_id = record_p1[loop3 + 1].student_id;
                             record_p1[loop3 + 1].student_id = HL2;
 
-                            HL3 = record_p1[loop3].student_GPA;
-                            record_p1[loop3].student_GPA = record_p1[loop3 + 1].student_GPA;
-                            record_p1[loop3 + 1].student_GPA = HL3;
+                            HL3 = record_p1[loop3].finishgpa;
+                            record_p1[loop3].finishgpa = record_p1[loop3 + 1].finishgpa;
+                            record_p1[loop3 + 1].finishgpa = HL3;
 
                             HL = record_p1[loop3].student_name;
                             record_p1[loop3].student_name = record_p1[loop3 + 1].student_name;
@@ -153,13 +161,6 @@ namespace SortingID_File
                 }
             }
 
-            for (loop1 = 0; loop1 < _SIZE; loop1++)
-            {
-                cal_p1 += record_p1[loop1].student_GPA * record_p1[loop1].stdsub_weight;
-                cal_p2 += record_p1[loop1].stdsub_weight;
-                cal_p3 = cal_p1 / cal_p2;
-                record_p1[loop1].finishgpa = cal_p3;
-            }
             for (loop1 = 0; loop1 < _SIZE; loop1++)
             {
                 // Record Section //
@@ -181,9 +182,13 @@ namespace SortingID_File
                 for (loop1 = 0; loop1 < _SIZE; loop1++)
                 {
                     StreamWriter _Fx = new StreamWriter("C:\\_data\\" + stdfile + ".txt", true);
-                    _Fx.WriteLine("");
+                    for(loop2 = 0; loop2 < 10; loop2++)
+                    { 
+                    _Fx.Write(" STUDENT{0}STUDENT ", loop1);
+                    }
+                    _Fx.WriteLine();
                     _Fx.WriteLine("Student {0,5} ID : {1,5}", record_p1[loop1].student_name, record_p1[loop1].student_id);
-                    _Fx.WriteLine("GPAX of {0,5} is : {1:F2,5}", record_p1[loop1].student_name, record_p1[loop1].finishgpa);
+                    _Fx.WriteLine("GPAX of {0,5} is : {1,5:F2}", record_p1[loop1].student_name, record_p1[loop1].finishgpa);
                     _Fx.Close();
                 }
 
